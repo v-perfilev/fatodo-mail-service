@@ -9,17 +9,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.persoff68.fatodo</groupId>
-    <artifactId>extendedskeleton</artifactId>
+    <artifactId>mailservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>extended-skeleton</name>
-    <description>Extended skeleton for FaToDo</description>
+    <name>fatodo-mail-service</name>
+    <description>Mail service for FaToDo</description>
 
     <properties>
         <!-- Common variables -->
         <jar.name>fatodo</jar.name>
         <maven.repo.url/>
         <!-- Classes and packages -->
-        <main.class>com.persoff68.fatodo.ExtendedSkeletonApplication</main.class>
+        <main.class>com.persoff68.fatodo.FatodoMailServiceApplication</main.class>
         <root.package>com.persoff68.fatodo</root.package>
         <contract.package>com.persoff68.fatodo.contract</contract.package>
         <!-- Dependency versions -->
