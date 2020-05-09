@@ -1,4 +1,4 @@
-package com.persoff68.fatodo.service.helpers;
+package com.persoff68.fatodo.service.helper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

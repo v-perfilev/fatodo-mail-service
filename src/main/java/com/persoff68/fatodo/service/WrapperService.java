@@ -1,8 +1,7 @@
 package com.persoff68.fatodo.service;
 
-import com.persoff68.fatodo.config.constant.EmailConstants;
 import com.persoff68.fatodo.service.exception.TemplateNotFoundException;
-import com.persoff68.fatodo.service.helpers.ResourceHelper;
+import com.persoff68.fatodo.service.helper.ResourceHelper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;

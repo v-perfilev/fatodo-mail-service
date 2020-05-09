@@ -24,12 +24,6 @@ public class MailController {
     private final MailService mailService;
     private final ActivationMapper activationMapper;
 
-    @GetMapping("test")
-    public ResponseEntity<Void> sendTestEmail() throws MessagingException {
-        mailService.sendSimpleEmail("persoff68@gmail.com", "test_subject", "test_text");
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping(value = "activation", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendActivationEmail(@RequestBody ActivationDTO activationDTO) {
         Activation activation = activationMapper.activationDTOToActivation(activationDTO);
