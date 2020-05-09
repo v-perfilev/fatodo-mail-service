@@ -12,13 +12,13 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class WrapperService {
-    private static final String TEMPlATE_PATH = "classpath:templates/wrapper/";
+    private static final String TEMPLATE_PATH = "classpath:templates/wrapper/";
 
     private final ResourceHelper resourceHelper;
 
     public String getWrapperString(String language) {
         try {
-            File file = resourceHelper.loadResource(TEMPlATE_PATH + language + ".html");
+            File file = resourceHelper.loadResource(TEMPLATE_PATH + language + ".html");
             StringBuilder sb = new StringBuilder();
             FileUtils.readLines(file)
                     .forEach(sb::append);

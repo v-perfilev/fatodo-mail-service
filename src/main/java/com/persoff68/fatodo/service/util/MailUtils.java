@@ -5,6 +5,9 @@ import com.persoff68.fatodo.model.Template;
 
 public class MailUtils {
 
+    private MailUtils() {
+    }
+
     public static String prepareActivationLink(String baseUrl, String code) {
         String activationRoute = "/activation/";
         return baseUrl + activationRoute + code;
