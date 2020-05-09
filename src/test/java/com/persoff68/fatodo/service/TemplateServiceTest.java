@@ -6,8 +6,6 @@ import com.persoff68.fatodo.service.exception.TemplateNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +21,6 @@ public class TemplateServiceTest {
 
     @Autowired
     TemplateService templateService;
-
-    @MockBean
-    JavaMailSender javaMailSender;
 
     @Test
     void testGetByCodeAndLanguage() {

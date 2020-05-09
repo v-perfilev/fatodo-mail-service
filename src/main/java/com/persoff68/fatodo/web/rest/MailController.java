@@ -24,7 +24,7 @@ public class MailController {
     private final MailService mailService;
     private final ActivationMapper activationMapper;
 
-    @PostMapping(value = "activation", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/activation", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendActivationEmail(@RequestBody ActivationDTO activationDTO) {
         Activation activation = activationMapper.activationDTOToActivation(activationDTO);
         mailService.sendActivationEmail(activation);

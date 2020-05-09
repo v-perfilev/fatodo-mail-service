@@ -21,3 +21,17 @@ test:
     invalid-expired: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJ0ZXN0X3VzZXIiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImlhdCI6MCwiZXhwIjoxfQ.EhKKcoQh93haohLMAxke8E0mZXNvCJfxYs9hphP1KhQCQkVPIY8cOc1GYzFZXlYOM99vF45R0sWcS2Znb2PhKw
     invalid-format: eyJhbGciOiJIUzUxMiJ9..Z9W6euZQEMSqVomaAEvUttG5jDwigScyhIYz_e8bHhYqSyirlP_vbU3xTb3iNMtVTU-rSADh5P-zZzic_aiO3g
     invalid-wrong: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJ0ZXN0X3VzZXIiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImlhdCI6MCwiZXhwIjozMjUwMzY3NjQwMH0.1l2ZELWqoHYlbtEzeZi38NTvstg3JX-c8p9V4psJyZ9Mi4MM5ZgnIzkRY53av2xFge_NICSRDfHhTONYWyzsqA
+
+
+spring:
+  mail:
+    host: smtp.xxx.com
+    username: xxx@xxx.com
+    password: xxxxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
