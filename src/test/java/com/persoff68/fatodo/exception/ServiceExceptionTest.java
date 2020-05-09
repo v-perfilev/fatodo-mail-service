@@ -1,10 +1,13 @@
 package com.persoff68.fatodo.exception;
 
+import com.persoff68.fatodo.service.exception.MailingFailedException;
 import com.persoff68.fatodo.service.exception.ModelAlreadyExistsException;
 import com.persoff68.fatodo.service.exception.ModelDuplicatedException;
 import com.persoff68.fatodo.service.exception.ModelInvalidException;
 import com.persoff68.fatodo.service.exception.ModelNotFoundException;
 import com.persoff68.fatodo.service.exception.PermissionException;
+import com.persoff68.fatodo.service.exception.TemplateInvalidException;
+import com.persoff68.fatodo.service.exception.TemplateNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
@@ -100,6 +103,33 @@ public class ServiceExceptionTest {
         AbstractException abstractException = (AbstractException) exception;
         assertThat(abstractException.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(abstractException.getFeedBackCode()).isEqualTo("permission.restricted");
+    }
+
+    @Test
+    void testMailingFailedException() {
+        Object exception = new MailingFailedException();
+        assertThat(exception).isInstanceOf(AbstractException.class);
+        AbstractException abstractException = (AbstractException) exception;
+        assertThat(abstractException.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(abstractException.getFeedBackCode()).isEqualTo("mail.failed");
+    }
+
+    @Test
+    void testTemplateInvalidException() {
+        Object exception = new TemplateInvalidException();
+        assertThat(exception).isInstanceOf(AbstractException.class);
+        AbstractException abstractException = (AbstractException) exception;
+        assertThat(abstractException.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(abstractException.getFeedBackCode()).isEqualTo("mail.templateInvalid");
+    }
+
+    @Test
+    void testTemplateNotFoundException() {
+        Object exception = new TemplateNotFoundException();
+        assertThat(exception).isInstanceOf(AbstractException.class);
+        AbstractException abstractException = (AbstractException) exception;
+        assertThat(abstractException.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(abstractException.getFeedBackCode()).isEqualTo("mail.templateNotFound");
     }
 
 }

@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public class TemplateInvalidException extends AbstractException {
     private static final String MESSAGE = "Template invalid";
-    private static final String FEEDBACK_CODE = "mail.template-invalid";
+    private static final String FEEDBACK_CODE = "mail.templateInvalid";
 
     public TemplateInvalidException() {
         super(HttpStatus.INTERNAL_SERVER_ERROR, MESSAGE, FEEDBACK_CODE);
