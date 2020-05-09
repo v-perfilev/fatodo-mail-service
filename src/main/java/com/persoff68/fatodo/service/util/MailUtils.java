@@ -10,7 +10,8 @@ public class MailUtils {
         return baseUrl + activationRoute + code;
     }
 
-    public static String prepareActivationText(String wrapper, Template template, String username, String activationLink) {
+    public static String prepareActivationText(String wrapper, Template template,
+                                               String username, String activationLink) {
         String content = template.getText()
                 .replace(EmailConstants.USERNAME_STUB, username)
                 .replace(EmailConstants.ACTIVATION_LINK_STUB, activationLink);

@@ -12,7 +12,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class WrapperService {
-    private final static String TEMPlATE_PATH = "classpath:templates/wrapper/";
+    private static final String TEMPlATE_PATH = "classpath:templates/wrapper/";
 
     private final ResourceHelper resourceHelper;
 
