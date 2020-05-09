@@ -12,7 +12,7 @@
     <artifactId>mailservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>fatodo-mail-service</name>
-    <description>Mail service for FaToDo</description>
+    <description>Mail service for Fatodo</description>
 
     <properties>
         <!-- Common variables -->
