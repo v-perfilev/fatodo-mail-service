@@ -1,6 +1,8 @@
 package com.persoff68.fatodo.web.rest;
 
+import com.persoff68.fatodo.model.Activation;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
+import com.persoff68.fatodo.model.mapper.ActivationMapper;
 import com.persoff68.fatodo.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -20,6 +22,7 @@ public class MailController {
     static final String ENDPOINT = "/api/mail";
 
     private final MailService mailService;
+    private final ActivationMapper activationMapper;
 
     @GetMapping("test")
     public ResponseEntity<Void> sendTestEmail() throws MessagingException {
@@ -28,9 +31,9 @@ public class MailController {
     }
 
     @PostMapping(value = "activation", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> sendTestEmail(@RequestBody ActivationDTO activationDTO) throws MessagingException {
-        mailService.sendActivationEmail(activationDTO.getTo(),
-                activationDTO.getLanguage(), activationDTO.getActivationLink());
+    public ResponseEntity<Void> sendActivationEmail(@RequestBody ActivationDTO activationDTO) {
+        Activation activation = activationMapper.activationDTOToActivation(activationDTO);
+        mailService.sendActivationEmail(activation);
         return ResponseEntity.ok().build();
     }
 
