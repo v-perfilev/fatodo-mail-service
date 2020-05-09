@@ -21,7 +21,7 @@ public class TemplateService {
     public Template getByCodeAndLanguage(String code, String language) {
         try {
             code = code.replace(".", "/");
-            String path = "classpath:templates/" + code + "/" + language;
+            String path = "classpath:templates/" + code + "/" + language + ".tem";
             File file = resourceHelper.loadResource(path);
             List<String> stringList = FileUtils.readLines(file);
 

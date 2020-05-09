@@ -5,7 +5,6 @@ import com.persoff68.fatodo.config.constant.EmailConstants;
 import com.persoff68.fatodo.model.Activation;
 import com.persoff68.fatodo.model.Template;
 import com.persoff68.fatodo.service.exception.MailingFailedException;
-import com.persoff68.fatodo.service.helpers.WrapperHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,7 +20,7 @@ public class MailService {
     private final AppProperties appProperties;
     private final JavaMailSender mailSender;
     private final TemplateService templateService;
-    private final WrapperHelper wrapperHelper;
+    private final WrapperService wrapperService;
 
     public void sendSimpleEmail(String to, String subject, String text) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
@@ -38,9 +37,10 @@ public class MailService {
         String username = activation.getUsername();
         String activationLink = prepareActivationLink(activation.getCode());
 
+        String wrapper = wrapperService.getWrapperString(language);
         Template template = templateService.getByCodeAndLanguage("activation", language);
         String subject = template.getSubject();
-        String text = prepareActivationText(template, username, activationLink);
+        String text = prepareActivationText(wrapper, template, username, activationLink);
 
         sendMimeMessage(email, subject, text);
     }
@@ -51,11 +51,11 @@ public class MailService {
         return baseUrl + activationRoute + code;
     }
 
-    private String prepareActivationText(Template template, String username, String activationLink) {
+    private String prepareActivationText(String wrapper, Template template, String username, String activationLink) {
         String content = template.getText()
                 .replace(EmailConstants.USERNAME_STUB, username)
                 .replace(EmailConstants.ACTIVATION_LINK_STUB, activationLink);
-        return wrapperHelper.getWrapperString().replace(EmailConstants.CONTENT_STUB, content);
+        return wrapper.replace(EmailConstants.CONTENT_STUB, content);
     }
 
     private void sendMimeMessage(String email, String subject, String text) {

@@ -1,6 +1,8 @@
-package com.persoff68.fatodo.service.helpers;
+package com.persoff68.fatodo.service;
 
 import com.persoff68.fatodo.config.constant.EmailConstants;
+import com.persoff68.fatodo.service.exception.TemplateNotFoundException;
+import com.persoff68.fatodo.service.helpers.ResourceHelper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
@@ -10,20 +12,20 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class WrapperHelper {
-    private final static String TEMPlATE_PATH = "classpath:templates/template.html";
+public class WrapperService {
+    private final static String TEMPlATE_PATH = "classpath:templates/wrapper/";
 
     private final ResourceHelper resourceHelper;
 
-    public String getWrapperString() {
+    public String getWrapperString(String language) {
         try {
-            File file = resourceHelper.loadResource(TEMPlATE_PATH);
+            File file = resourceHelper.loadResource(TEMPlATE_PATH + language + ".html");
             StringBuilder sb = new StringBuilder();
             FileUtils.readLines(file)
                     .forEach(sb::append);
             return sb.toString();
         } catch (IOException e) {
-            return EmailConstants.CONTENT_STUB;
+            throw new TemplateNotFoundException();
         }
     }
 }
