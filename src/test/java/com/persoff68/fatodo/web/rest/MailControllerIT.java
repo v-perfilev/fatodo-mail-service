@@ -5,6 +5,7 @@ import com.persoff68.fatodo.FactoryUtils;
 import com.persoff68.fatodo.FatodoMailServiceApplication;
 import com.persoff68.fatodo.config.constant.AuthorityType;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
+import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -77,6 +78,39 @@ public class MailControllerIT {
         ActivationDTO dto = FactoryUtils.createActivationDTO("user", UUID.randomUUID().toString(), "en");
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/activation";
+        mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(authorities = AuthorityType.Constants.SYSTEM_VALUE)
+    public void testSendResetPasswordMail_ok() throws Exception {
+        ResetPasswordDTO dto = FactoryUtils.createResetPasswordDTO("user", UUID.randomUUID().toString(), "en");
+        String requestBody = objectMapper.writeValueAsString(dto);
+        String url = ENDPOINT + "/reset-password";
+        mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithAnonymousUser
+    public void testSendResetPasswordMail_unauthorized() throws Exception {
+        ResetPasswordDTO dto = FactoryUtils.createResetPasswordDTO("user", UUID.randomUUID().toString(), "en");
+        String requestBody = objectMapper.writeValueAsString(dto);
+        String url = ENDPOINT + "/reset-password";
+        mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithMockUser
+    public void testSendResetPasswordMail_forbidden() throws Exception {
+        ResetPasswordDTO dto = FactoryUtils.createResetPasswordDTO("user", UUID.randomUUID().toString(), "en");
+        String requestBody = objectMapper.writeValueAsString(dto);
+        String url = ENDPOINT + "/reset-password";
         mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(status().isForbidden());

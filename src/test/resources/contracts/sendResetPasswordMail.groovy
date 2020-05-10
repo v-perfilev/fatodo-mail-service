@@ -3,7 +3,7 @@ package contracts.authcontroller
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    name 'send activation mail'
+    name 'send reset password mail'
     description 'should return status 200'
     request {
         method POST()
