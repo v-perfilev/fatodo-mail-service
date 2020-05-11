@@ -7,7 +7,7 @@ Contract.make {
     description 'should return status 200'
     request {
         method POST()
-        url("/api/mail/activation")
+        url("/api/mail/reset-password")
         headers {
             contentType applicationJson()
             header 'Authorization': $(
