@@ -15,8 +15,8 @@ public class ResetPasswordUtils {
 
     public static String prepareText(Template template, String username, String resetPassword) {
         return template.getText()
-                .replace(EmailConstants.USERNAME_STUB, username)
-                .replace(EmailConstants.RESET_PASSWORD_LINK_STUB, resetPassword);
+                .replaceAll(EmailConstants.USERNAME_STUB, username)
+                .replaceAll(EmailConstants.RESET_PASSWORD_LINK_STUB, resetPassword);
     }
 
 }

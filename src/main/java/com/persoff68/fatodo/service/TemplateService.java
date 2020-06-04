@@ -16,18 +16,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TemplateService {
 
+    private static final String TEMPLATE_PATH = "classpath:templates/";
+
     private final ResourceHelper resourceHelper;
 
     public Template getByCodeAndLanguage(String code, String language) {
         try {
             code = code.replace(".", "/");
-            String path = "classpath:templates/" + code + File.separator + language + ".tem";
-            File file = resourceHelper.loadResource(path);
-            List<String> stringList = FileUtils.readLines(file);
-
-            checkStringList(stringList);
-            String subject = getSubjectFromList(stringList);
-            String text = getTextFromList(stringList);
+            String subject = getSubject(code, language);
+            String text = getText(code, language);
 
             Template template = new Template();
             template.setCode(code);
@@ -37,26 +34,31 @@ public class TemplateService {
 
             return template;
         } catch (IOException e) {
-            throw new TemplateNotFoundException();
-        }
-    }
-
-    private void checkStringList(List<String> stringList) {
-        if (stringList.size() < 2) {
             throw new TemplateInvalidException();
         }
     }
 
-    private String getSubjectFromList(List<String> stringList) {
-        return stringList.get(0);
+    private String getSubject(String code, String language) throws IOException {
+        String subjectPath = TEMPLATE_PATH + code + File.separator + "subjects";
+        File subjectFile = resourceHelper.loadResource(subjectPath);
+        if (subjectFile == null) {
+            throw new TemplateNotFoundException();
+        }
+        List<String> subjectList = FileUtils.readLines(subjectFile);
+        String subjectWithLanguage = subjectList.stream()
+                .filter(s -> s.startsWith(language))
+                .findFirst()
+                .orElseThrow(TemplateInvalidException::new);
+        return subjectWithLanguage.substring(language.length()).trim();
     }
 
-    private String getTextFromList(List<String> stringList) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < stringList.size(); i++) {
-            sb.append(stringList.get(i));
+    private String getText(String code, String language) throws IOException {
+        String templatePath = TEMPLATE_PATH + code + File.separator + language + ".html";
+        File templateFile = resourceHelper.loadResource(templatePath);
+        if (templateFile == null) {
+            throw new TemplateNotFoundException();
         }
-        return sb.toString();
+        return FileUtils.readFileToString(templateFile);
     }
 
 }

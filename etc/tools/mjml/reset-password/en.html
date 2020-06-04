@@ -34,31 +34,18 @@
     </mj-head>
     <mj-body>
 
-        <!-- Header -->
-        <mj-section padding="15 0">
-            <mj-column>
-                <mj-text css-class="logo">
-                    Fatodo
-                </mj-text>
-            </mj-column>
-        </mj-section>
-
-        <!-- Header divider -->
-        <mj-divider border-color="#ffba16" border-width="2px" />
-
         <!-- Content -->
         <mj-section>
             <mj-column>
 
-                <mj-text css-class="caption">Welome dear user!</mj-text>
+                <mj-text css-class="caption">Dear {USERNAME}!</mj-text>
 
                 <mj-text css-class="text">
-                    Thank you for creating a Fatodo account.
-                    For using it you need to confirm your email address. Just click on the button below!
+                    To reset your password on Fatodo press the button! If you did not request password reset ignore this email.
                 </mj-text>
 
-                <mj-button css-class="button" background-color="#ffba16" href="#">
-                    Confirm account
+                <mj-button css-class="button" background-color="#ffba16" href="{RESET_PASSWORD_LINK}">
+                    Reset password
                 </mj-button>
 
                 <mj-text css-class="text">
@@ -67,25 +54,13 @@
                 </mj-text>
 
                 <mj-text css-class="link">
-                    <a href="http://ya.ru">Test</a>
+                    <a href="{RESET_PASSWORD_LINK}">{RESET_PASSWORD_LINK}</a>
                 </mj-text>
 
                 <mj-text css-class="text">
                     Best regards,<br />Team Fatodo
                 </mj-text>
 
-            </mj-column>
-        </mj-section>
-
-        <!-- Footer divider -->
-        <mj-divider border-color="#666666" border-width="1px" />
-
-        <!-- Footer -->
-        <mj-section padding="5 0">
-            <mj-column>
-                <mj-text css-class="footer">
-                    Fatodo 2020
-                </mj-text>
             </mj-column>
         </mj-section>
 

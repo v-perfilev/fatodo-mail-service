@@ -15,8 +15,8 @@ public class ActivationUtils {
 
     public static String prepareActivationText(Template template, String username, String activationLink) {
         return template.getText()
-                .replace(EmailConstants.USERNAME_STUB, username)
-                .replace(EmailConstants.ACTIVATION_LINK_STUB, activationLink);
+                .replaceAll(EmailConstants.USERNAME_STUB, username)
+                .replaceAll(EmailConstants.ACTIVATION_LINK_STUB, activationLink);
     }
 
 }

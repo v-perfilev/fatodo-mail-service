@@ -1,5 +1,6 @@
 package com.persoff68.fatodo.service;
 
+import com.persoff68.fatodo.service.exception.TemplateInvalidException;
 import com.persoff68.fatodo.service.exception.TemplateNotFoundException;
 import com.persoff68.fatodo.service.helper.ResourceHelper;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,15 @@ public class WrapperService {
     public String getWrapperString(String language) {
         try {
             File file = resourceHelper.loadResource(TEMPLATE_PATH + language + ".html");
+            if (file == null) {
+                throw new TemplateNotFoundException();
+            }
             StringBuilder sb = new StringBuilder();
             FileUtils.readLines(file)
                     .forEach(sb::append);
             return sb.toString();
         } catch (IOException e) {
-            throw new TemplateNotFoundException();
+            throw new TemplateInvalidException();
         }
     }
 }

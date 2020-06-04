@@ -1,0 +1,67 @@
+<mjml>
+    <mj-head>
+        <mj-title>Fatodo</mj-title>
+        <mj-style>
+            * {
+            font-size: 15px !important;
+            }
+            .logo * {
+            font-weight: 500;
+            font-size: 30px !important;
+            color: #21b0a7 !important;
+            }
+            .caption * {
+            font-style: italic;
+            font-size: 20px !important;
+            color: #666666 !important;
+            }
+            .button * {
+            font-size: 20px !important;
+            }
+            .text * {
+            color: #222222 !important;
+            text-align: justify !important;
+            line-height: 1.4 !important;
+            }
+            .link * {
+            color: #21b0a7 !important;
+            }
+            .footer * {
+            font-size: 12px !important;
+            color: #666666 !important;
+            }
+        </mj-style>
+    </mj-head>
+    <mj-body>
+
+        <!-- Content -->
+        <mj-section>
+            <mj-column>
+
+                <mj-text css-class="caption">Привет, {USERNAME}!</mj-text>
+
+                <mj-text css-class="text">
+                    Чтобы обновить пароль на Fatodo нажми на кнопку! Если ты не запрашивал восстановление пароля, не обращай внимания на это письмо.
+                </mj-text>
+
+                <mj-button css-class="button" background-color="#ffba16" href="{RESET_PASSWORD_LINK}">
+                    Восстановить пароль
+                </mj-button>
+
+                <mj-text css-class="text">
+                    Кнопка не работает? Тогда вручную скопируй ссылку в адресную строку браузера.
+                </mj-text>
+
+                <mj-text css-class="link">
+                    <a href="{RESET_PASSWORD_LINK}">{RESET_PASSWORD_LINK}</a>
+                </mj-text>
+
+                <mj-text css-class="text">
+                    С наилучшими пожеланиями,<br />команда Fatodo
+                </mj-text>
+
+            </mj-column>
+        </mj-section>
+
+    </mj-body>
+</mjml>

@@ -11,8 +11,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ResourceHelper {
 
-    public File loadResource(String path) throws IOException {
-        return ResourceUtils.getFile(path);
+    public File loadResource(String path) {
+        try {
+            return ResourceUtils.getFile(path);
+        } catch (IOException e) {
+            return null;
+        }
     }
 
 }
