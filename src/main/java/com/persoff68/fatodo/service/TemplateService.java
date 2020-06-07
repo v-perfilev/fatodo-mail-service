@@ -38,13 +38,12 @@ public class TemplateService {
         }
     }
 
-    private String getSubject(String code, String language) throws IOException {
+    private String getSubject(String code, String language) {
         String subjectPath = TEMPLATE_PATH + code + File.separator + "subjects";
-        File subjectFile = resourceHelper.loadResource(subjectPath);
-        if (subjectFile == null) {
+        List<String> subjectList = resourceHelper.loadResource(subjectPath);
+        if (subjectList == null) {
             throw new TemplateNotFoundException();
         }
-        List<String> subjectList = FileUtils.readLines(subjectFile);
         String subjectWithLanguage = subjectList.stream()
                 .filter(s -> s.startsWith(language))
                 .findFirst()
@@ -54,11 +53,11 @@ public class TemplateService {
 
     private String getText(String code, String language) throws IOException {
         String templatePath = TEMPLATE_PATH + code + File.separator + language + ".html";
-        File templateFile = resourceHelper.loadResource(templatePath);
-        if (templateFile == null) {
+        List<String> templateList = resourceHelper.loadResource(templatePath);
+        if (templateList == null) {
             throw new TemplateNotFoundException();
         }
-        return FileUtils.readFileToString(templateFile);
+        return String.join("", templateList);
     }
 
 }
