@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -24,7 +25,7 @@ public class ResourceHelper {
             InputStream inputStream = resource.getInputStream();
             return IOUtils.readLines(inputStream);
         } catch (IOException e) {
-            return null;
+            return new ArrayList<>();
         }
     }
 

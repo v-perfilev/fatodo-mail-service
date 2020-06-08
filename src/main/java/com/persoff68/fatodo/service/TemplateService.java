@@ -5,11 +5,9 @@ import com.persoff68.fatodo.service.exception.TemplateInvalidException;
 import com.persoff68.fatodo.service.exception.TemplateNotFoundException;
 import com.persoff68.fatodo.service.helper.ResourceHelper;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -21,27 +19,23 @@ public class TemplateService {
     private final ResourceHelper resourceHelper;
 
     public Template getByCodeAndLanguage(String code, String language) {
-        try {
-            code = code.replace(".", "/");
-            String subject = getSubject(code, language);
-            String text = getText(code, language);
+        code = code.replace(".", "/");
+        String subject = getSubject(code, language);
+        String text = getText(code, language);
 
-            Template template = new Template();
-            template.setCode(code);
-            template.setLanguage(language);
-            template.setSubject(subject);
-            template.setText(text);
+        Template template = new Template();
+        template.setCode(code);
+        template.setLanguage(language);
+        template.setSubject(subject);
+        template.setText(text);
 
-            return template;
-        } catch (IOException e) {
-            throw new TemplateInvalidException();
-        }
+        return template;
     }
 
     private String getSubject(String code, String language) {
         String subjectPath = TEMPLATE_PATH + code + File.separator + "subjects";
         List<String> subjectList = resourceHelper.loadResource(subjectPath);
-        if (subjectList == null) {
+        if (subjectList.isEmpty()) {
             throw new TemplateNotFoundException();
         }
         String subjectWithLanguage = subjectList.stream()
@@ -51,10 +45,10 @@ public class TemplateService {
         return subjectWithLanguage.substring(language.length()).trim();
     }
 
-    private String getText(String code, String language) throws IOException {
+    private String getText(String code, String language) {
         String templatePath = TEMPLATE_PATH + code + File.separator + language + ".html";
         List<String> templateList = resourceHelper.loadResource(templatePath);
-        if (templateList == null) {
+        if (templateList.isEmpty()) {
             throw new TemplateNotFoundException();
         }
         return String.join("", templateList);

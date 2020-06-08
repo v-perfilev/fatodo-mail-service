@@ -16,7 +16,7 @@ public class WrapperService {
 
     public String getWrapperString(String language) {
         List<String> stringList = resourceHelper.loadResource(TEMPLATE_PATH + language + ".html");
-        if (stringList == null) {
+        if (stringList.isEmpty()) {
             throw new TemplateNotFoundException();
         }
         return String.join("", stringList);
