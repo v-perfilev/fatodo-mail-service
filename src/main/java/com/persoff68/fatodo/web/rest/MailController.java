@@ -6,7 +6,7 @@ import com.persoff68.fatodo.model.dto.ActivationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import com.persoff68.fatodo.model.mapper.ActivationMapper;
 import com.persoff68.fatodo.model.mapper.ResetPasswordMapper;
-import com.persoff68.fatodo.service.MailService;
+import com.persoff68.fatodo.service.MailBuildService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,21 +21,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class MailController {
     static final String ENDPOINT = "/api/mail";
 
-    private final MailService mailService;
+    private final MailBuildService mailBuildService;
     private final ActivationMapper activationMapper;
     private final ResetPasswordMapper resetPasswordMapper;
 
     @PostMapping(value = "/activation", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendActivationMail(@RequestBody ActivationDTO activationDTO) {
         Activation activation = activationMapper.activationDTOToActivation(activationDTO);
-        mailService.sendActivationEmail(activation);
+        mailBuildService.addActivationEmail(activation);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/reset-password", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendResetPasswordMail(@RequestBody ResetPasswordDTO resetPasswordDTO) {
         ResetPassword resetPassword = resetPasswordMapper.resetPasswordDTOToResetPassword(resetPasswordDTO);
-        mailService.sendResetPasswordEmail(resetPassword);
+        mailBuildService.addResetPasswordEmail(resetPassword);
         return ResponseEntity.ok().build();
     }
 

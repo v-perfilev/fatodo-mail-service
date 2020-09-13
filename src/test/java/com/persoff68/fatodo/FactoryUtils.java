@@ -1,5 +1,6 @@
 package com.persoff68.fatodo;
 
+import com.persoff68.fatodo.model.Mail;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 
@@ -21,6 +22,10 @@ public class FactoryUtils {
         dto.setCode(code);
         dto.setLanguage(language);
         return dto;
+    }
+
+    public static Mail createMail(String postfix) {
+        return new Mail("test_" + postfix + "@email.com", "test", "test");
     }
 
 }
