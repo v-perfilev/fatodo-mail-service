@@ -24,10 +24,11 @@ public class MailTask {
     @Scheduled(fixedDelay = 5000)
     public void sendMails() {
         List<Mail> mailList = mailStoreService.getListOfNotSent();
-        if (mailList.size() > 0) {
-            log.info("Found {} messages to send", mailList.size());
-        } else {
+        if (mailList.isEmpty()) {
             log.info("No messages to send found");
+            return;
+        } else {
+            log.info("Found {} messages to send", mailList.size());
         }
         mailList.forEach(mail -> mailStoreService.changeStatus(mail, Mail.Status.PENDING));
         mailList.forEach(mail -> {
