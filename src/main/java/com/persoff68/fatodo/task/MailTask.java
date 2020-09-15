@@ -6,6 +6,7 @@ import com.persoff68.fatodo.service.MailStoreService;
 import com.persoff68.fatodo.service.exception.MailingFailedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@EnableScheduling
 public class MailTask {
 
     private final MailStoreService mailStoreService;
@@ -40,7 +42,7 @@ public class MailTask {
         });
     }
 
-    @Scheduled(cron = "0 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void deleteSentMails() {
         mailStoreService.deleteSentMails();
     }
