@@ -2,9 +2,10 @@ package com.persoff68.fatodo.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "ftd_mail")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
