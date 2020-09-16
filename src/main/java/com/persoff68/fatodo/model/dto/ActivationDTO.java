@@ -1,15 +1,13 @@
 package com.persoff68.fatodo.model.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class ActivationDTO extends AbstractDTO {
+public class ActivationDTO implements AbstractDTO {
     private String language;
     @NotNull
     private String email;
