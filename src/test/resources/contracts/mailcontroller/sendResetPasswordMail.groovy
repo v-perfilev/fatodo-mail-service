@@ -1,4 +1,4 @@
-package contracts.authcontroller
+package contracts.mailcontroller
 
 import org.springframework.cloud.contract.spec.Contract
 
