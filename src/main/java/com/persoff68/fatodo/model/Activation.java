@@ -3,7 +3,7 @@ package com.persoff68.fatodo.model;
 import lombok.Data;
 
 @Data
-public class Activation implements AbstractModel {
+public class Activation {
 
     private String language;
     private String email;

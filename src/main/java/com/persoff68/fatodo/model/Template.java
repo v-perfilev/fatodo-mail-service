@@ -5,14 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Template implements AbstractModel {
+public class Template {
 
     private String code;
-
     private String language;
-
     private String subject;
-
     private String text;
 
 }

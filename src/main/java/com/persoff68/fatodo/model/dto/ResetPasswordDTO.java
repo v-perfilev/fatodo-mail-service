@@ -4,10 +4,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class ResetPasswordDTO implements AbstractDTO {
+public class ResetPasswordDTO implements Serializable {
     private String language;
     @NotNull
     private String email;
