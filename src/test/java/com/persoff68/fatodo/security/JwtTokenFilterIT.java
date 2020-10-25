@@ -28,8 +28,10 @@ public class JwtTokenFilterIT {
     String invalidExpiredJwt;
     @Value("${test.jwt.invalid-format}")
     String invalidFormatJwt;
-    @Value("${test.jwt.invalid-wrong}")
-    String invalidWrongJwt;
+    @Value("${test.jwt.invalid-wrong-token}")
+    String invalidWrongTokenJwt;
+    @Value("${test.jwt.invalid-wrong-uuid}")
+    String invalidWrongUuidJwt;
 
     @Autowired
     WebApplicationContext context;
@@ -80,9 +82,17 @@ public class JwtTokenFilterIT {
     }
 
     @Test
-    void testInvalidWrongJwt() throws Exception {
+    void testInvalidWrongTokenJwt() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + invalidWrongJwt);
+        headers.add("Authorization", "Bearer " + invalidWrongTokenJwt);
+        mvc.perform(get("/").headers(headers))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void testInvalidWrongUuidJwt() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + invalidWrongUuidJwt);
         mvc.perform(get("/").headers(headers))
                 .andExpect(status().isUnauthorized());
     }
