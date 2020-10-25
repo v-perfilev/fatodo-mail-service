@@ -42,7 +42,7 @@ public class MailBuildService {
         String wrapper = wrapperService.getWrapperString(language);
         String text = MailUtils.wrapContent(wrapper, content);
 
-        Mail mail = new Mail(email, subject, text);
+        Mail mail = Mail.of(email, subject, text);
         mailStoreService.add(mail);
     }
 
@@ -59,7 +59,7 @@ public class MailBuildService {
         String wrapper = wrapperService.getWrapperString(language);
         String text = MailUtils.wrapContent(wrapper, content);
 
-        Mail mail = new Mail(email, subject, text);
+        Mail mail = Mail.of(email, subject, text);
         mailStoreService.add(mail);
     }
 
