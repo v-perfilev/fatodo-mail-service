@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(MailController.ENDPOINT)
 public class MailController {
-    static final String ENDPOINT = "/api/mail";
+    static final String ENDPOINT = "/api/mails";
 
     private final MailBuildService mailBuildService;
     private final ActivationMapper activationMapper;

@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = FatodoMailServiceApplication.class)
 public class MailControllerIT {
-    private static final String ENDPOINT = "/api/mail";
+    private static final String ENDPOINT = "/api/mails";
 
     @Autowired
     WebApplicationContext context;
