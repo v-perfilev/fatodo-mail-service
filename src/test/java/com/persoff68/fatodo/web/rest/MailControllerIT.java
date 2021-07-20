@@ -6,10 +6,8 @@ import com.persoff68.fatodo.annotation.WithCustomSecurityContext;
 import com.persoff68.fatodo.builder.TestActivationDTO;
 import com.persoff68.fatodo.builder.TestResetPasswordDTO;
 import com.persoff68.fatodo.config.constant.AuthorityType;
-import com.persoff68.fatodo.model.Mail;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
-import com.persoff68.fatodo.repository.MailRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,15 +31,12 @@ public class MailControllerIT {
     WebApplicationContext context;
     @Autowired
     ObjectMapper objectMapper;
-    @Autowired
-    MailRepository mailRepository;
 
     MockMvc mvc;
 
     @BeforeEach
     public void setup() {
         mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
-        mailRepository.deleteAll();
     }
 
     @Test
@@ -54,10 +48,6 @@ public class MailControllerIT {
         mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(status().isOk());
-        boolean isMailInDatabase = mailRepository.findAll().stream().anyMatch(mail ->
-                mail.getEmail().equals(dto.getEmail()) && mail.getStatus().equals(Mail.Status.NEW)
-        );
-        assertThat(isMailInDatabase).isTrue();
     }
 
     @Test
@@ -91,10 +81,6 @@ public class MailControllerIT {
         mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(status().isOk());
-        boolean isMailInDatabase = mailRepository.findAll().stream().anyMatch(mail ->
-                mail.getEmail().equals(dto.getEmail()) && mail.getStatus().equals(Mail.Status.NEW)
-        );
-        assertThat(isMailInDatabase).isTrue();
     }
 
     @Test

@@ -15,12 +15,12 @@ import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
-public class MailBuildService {
+public class MailService {
 
     private final AppProperties appProperties;
     private final TemplateService templateService;
     private final WrapperService wrapperService;
-    private final MailStoreService mailStoreService;
+    private final MailSenderService mailSenderService;
 
     private String baseUrl;
 
@@ -29,7 +29,7 @@ public class MailBuildService {
         baseUrl = appProperties.getCommon().getBaseUrl();
     }
 
-    public void addActivationEmail(Activation activation) {
+    public void sendActivationEmail(Activation activation) {
         String language = activation.getLanguage() != null ? activation.getLanguage() : "en";
         String email = activation.getEmail();
         String username = activation.getUsername();
@@ -43,10 +43,10 @@ public class MailBuildService {
         String text = MailUtils.wrapContent(wrapper, content);
 
         Mail mail = Mail.of(email, subject, text);
-        mailStoreService.add(mail);
+        mailSenderService.sendMimeMessage(mail);
     }
 
-    public void addResetPasswordEmail(ResetPassword resetPassword) {
+    public void sendResetPasswordEmail(ResetPassword resetPassword) {
         String language = resetPassword.getLanguage() != null ? resetPassword.getLanguage() : "en";
         String email = resetPassword.getEmail();
         String username = resetPassword.getUsername();
@@ -60,7 +60,7 @@ public class MailBuildService {
         String text = MailUtils.wrapContent(wrapper, content);
 
         Mail mail = Mail.of(email, subject, text);
-        mailStoreService.add(mail);
+        mailSenderService.sendMimeMessage(mail);
     }
 
 }
