@@ -10,7 +10,7 @@ public class ResetPasswordUtils {
     private ResetPasswordUtils() {
     }
 
-    public static String prepareLink(String baseUrl, UUID code) {
+    public static String prepareResetPasswordLink(String baseUrl, UUID code) {
         String resetPasswordRoute = "/reset-password/";
         return baseUrl + resetPasswordRoute + code;
     }

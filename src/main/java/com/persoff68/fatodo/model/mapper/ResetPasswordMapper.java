@@ -8,6 +8,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ResetPasswordMapper {
 
-    ResetPassword resetPasswordDTOToResetPassword(ResetPasswordDTO resetPasswordDTO);
+    ResetPassword dtoToPojo(ResetPasswordDTO dto);
 
 }
