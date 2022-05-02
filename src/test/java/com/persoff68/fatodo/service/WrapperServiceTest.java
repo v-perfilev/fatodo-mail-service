@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest(classes = FatodoMailServiceApplication.class)
-public class WrapperServiceTest {
+class WrapperServiceTest {
 
     private final static String[] LANGUAGES = {"en", "ru"};
 

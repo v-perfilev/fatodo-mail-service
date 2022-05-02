@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = FatodoMailServiceApplication.class)
-public class MailControllerIT {
+class MailControllerIT {
     private static final String ENDPOINT = "/api/mails";
 
     @Autowired
@@ -37,13 +37,13 @@ public class MailControllerIT {
     MockMvc mvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
 
     @Test
     @WithCustomSecurityContext(authority = AuthorityType.Constants.SYSTEM_VALUE)
-    public void testSendActivationMail_ok() throws Exception {
+    void testSendActivationMail_ok() throws Exception {
         ActivationDTO dto = TestActivationDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/activation";
@@ -54,7 +54,7 @@ public class MailControllerIT {
 
     @Test
     @WithMockUser
-    public void testSendActivationMail_forbidden() throws Exception {
+    void testSendActivationMail_forbidden() throws Exception {
         ActivationDTO dto = TestActivationDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/activation";
@@ -65,7 +65,7 @@ public class MailControllerIT {
 
     @Test
     @WithAnonymousUser
-    public void testSendActivationMail_unauthorized() throws Exception {
+    void testSendActivationMail_unauthorized() throws Exception {
         ActivationDTO dto = TestActivationDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/activation";
@@ -76,7 +76,7 @@ public class MailControllerIT {
 
     @Test
     @WithCustomSecurityContext(authority = AuthorityType.Constants.SYSTEM_VALUE)
-    public void testSendResetPasswordMail_ok() throws Exception {
+    void testSendResetPasswordMail_ok() throws Exception {
         ResetPasswordDTO dto = TestResetPasswordDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/reset-password";
@@ -87,7 +87,7 @@ public class MailControllerIT {
 
     @Test
     @WithMockUser
-    public void testSendResetPasswordMail_forbidden() throws Exception {
+    void testSendResetPasswordMail_forbidden() throws Exception {
         ResetPasswordDTO dto = TestResetPasswordDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/reset-password";
@@ -98,7 +98,7 @@ public class MailControllerIT {
 
     @Test
     @WithAnonymousUser
-    public void testSendResetPasswordMail_unauthorized() throws Exception {
+    void testSendResetPasswordMail_unauthorized() throws Exception {
         ResetPasswordDTO dto = TestResetPasswordDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/reset-password";
@@ -109,7 +109,7 @@ public class MailControllerIT {
 
     @Test
     @WithCustomSecurityContext(authority = AuthorityType.Constants.SYSTEM_VALUE)
-    public void testSendNotificationMail_ok() throws Exception {
+    void testSendNotificationMail_ok() throws Exception {
         NotificationDTO dto = TestNotificationDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/notification";
@@ -120,7 +120,7 @@ public class MailControllerIT {
 
     @Test
     @WithMockUser
-    public void testSendNotificationMail_forbidden() throws Exception {
+    void testSendNotificationMail_forbidden() throws Exception {
         NotificationDTO dto = TestNotificationDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/notification";
@@ -131,7 +131,7 @@ public class MailControllerIT {
 
     @Test
     @WithAnonymousUser
-    public void testSendNotificationMail_unauthorized() throws Exception {
+    void testSendNotificationMail_unauthorized() throws Exception {
         NotificationDTO dto = TestNotificationDTO.defaultBuilder().build();
         String requestBody = objectMapper.writeValueAsString(dto);
         String url = ENDPOINT + "/notification";

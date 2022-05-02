@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest(classes = FatodoMailServiceApplication.class)
-public class TemplateServiceTest {
+class TemplateServiceTest {
 
     private final static String[] CODES = {"activation", "reset-password"};
     private final static String[] LANGUAGES = {"en", "ru"};
