@@ -29,7 +29,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(properties = {
-        "kafka.bootstrapAddress=PLAINTEXT://localhost:9092",
+        "kafka.bootstrapAddress=localhost:9092",
         "kafka.groupId=test",
         "kafka.partitions=1",
         "kafka.autoOffsetResetConfig=earliest"
