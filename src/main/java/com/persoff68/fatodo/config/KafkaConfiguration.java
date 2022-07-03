@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.persoff68.fatodo.config.annotation.ConditionalOnPropertyNotNull;
 import com.persoff68.fatodo.config.util.KafkaUtils;
-import com.persoff68.fatodo.model.dto.ActivationDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
-import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,19 +31,17 @@ public class KafkaConfiguration {
     @Value(value = "${kafka.partitions}")
     private int partitions;
 
+    @Value(value = "${kafka.autoOffsetResetConfig:latest}")
+    private String autoOffsetResetConfig;
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         return KafkaUtils.buildKafkaAdmin(bootstrapAddress);
     }
 
     @Bean
-    public NewTopic activationNewTopic() {
-        return KafkaUtils.buildTopic("mail_activation", partitions);
-    }
-
-    @Bean
-    public NewTopic resetPasswordNewTopic() {
-        return KafkaUtils.buildTopic("mail_resetPassword", partitions);
+    public NewTopic authNewTopic() {
+        return KafkaUtils.buildTopic("mail_auth", partitions);
     }
 
     @Bean
@@ -54,24 +50,14 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ActivationDTO> activationContainerFactory() {
-        JavaType javaType = objectMapper.getTypeFactory()
-                .constructType(ActivationDTO.class);
-        return KafkaUtils.buildJsonContainerFactory(bootstrapAddress, groupId, javaType);
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ResetPasswordDTO> resetPasswordContainerFactory() {
-        JavaType javaType = objectMapper.getTypeFactory()
-                .constructType(ResetPasswordDTO.class);
-        return KafkaUtils.buildJsonContainerFactory(bootstrapAddress, groupId, javaType);
+    public ConcurrentKafkaListenerContainerFactory<String, String> authContainerFactory() {
+        return KafkaUtils.buildStringContainerFactory(bootstrapAddress, groupId, autoOffsetResetConfig);
     }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, NotificationDTO> notificationContainerFactory() {
-        JavaType javaType = objectMapper.getTypeFactory()
-                .constructType(NotificationDTO.class);
-        return KafkaUtils.buildJsonContainerFactory(bootstrapAddress, groupId, javaType);
+        JavaType javaType = objectMapper.getTypeFactory().constructType(NotificationDTO.class);
+        return KafkaUtils.buildJsonContainerFactory(bootstrapAddress, groupId, autoOffsetResetConfig, javaType);
     }
 
 }
