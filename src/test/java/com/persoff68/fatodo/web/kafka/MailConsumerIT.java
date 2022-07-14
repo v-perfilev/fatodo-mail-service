@@ -36,7 +36,7 @@ import static org.mockito.Mockito.verify;
 })
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
-public class MailConsumerIT {
+class MailConsumerIT {
 
     @Autowired
     private EmbeddedKafkaBroker embeddedKafkaBroker;

@@ -4,15 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.persoff68.fatodo.config.annotation.ConditionalOnPropertyNotNull;
 import com.persoff68.fatodo.exception.KafkaException;
+import com.persoff68.fatodo.mapper.ActivationMapper;
+import com.persoff68.fatodo.mapper.NotificationMapper;
+import com.persoff68.fatodo.mapper.ResetPasswordMapper;
 import com.persoff68.fatodo.model.Activation;
 import com.persoff68.fatodo.model.Notification;
 import com.persoff68.fatodo.model.ResetPassword;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
-import com.persoff68.fatodo.mapper.ActivationMapper;
-import com.persoff68.fatodo.mapper.NotificationMapper;
-import com.persoff68.fatodo.mapper.ResetPasswordMapper;
 import com.persoff68.fatodo.service.MailService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +29,9 @@ import java.util.concurrent.CountDownLatch;
 @ConditionalOnPropertyNotNull(value = "kafka.bootstrapAddress")
 public class MailConsumer {
 
+    private static final String MAIL_AUTH_TOPIC = "mail_auth";
+    private static final String MAIL_NOTIFICATION_TOPIC = "mail_notification";
+
     private final MailService mailService;
     private final ActivationMapper activationMapper;
     private final ResetPasswordMapper resetPasswordMapper;
@@ -38,7 +41,7 @@ public class MailConsumer {
     @Getter
     private CountDownLatch latch = new CountDownLatch(1);
 
-    @KafkaListener(topics = "mail_auth", containerFactory = "authContainerFactory")
+    @KafkaListener(topics = MAIL_AUTH_TOPIC, containerFactory = "authContainerFactory")
     public void sendAuthMail(@Payload String value, @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key) {
         switch (key) {
             case "activation" -> handleActivation(value);
@@ -48,7 +51,7 @@ public class MailConsumer {
         resetLatch();
     }
 
-    @KafkaListener(topics = "mail_notification", containerFactory = "notificationContainerFactory")
+    @KafkaListener(topics = MAIL_NOTIFICATION_TOPIC, containerFactory = "notificationContainerFactory")
     public void sendNotificationMail(NotificationDTO notificationDTO) {
         Notification notification = notificationMapper.dtoToPojo(notificationDTO);
         mailService.sendNotificationEmail(notification);
