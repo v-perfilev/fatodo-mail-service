@@ -8,8 +8,11 @@ import java.util.UUID;
 public class ResetPassword implements MailParams {
 
     private String language;
+
     private String email;
+
     private String username;
+
     private UUID code;
 
 }

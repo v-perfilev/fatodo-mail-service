@@ -6,9 +6,13 @@ import lombok.Data;
 public class Notification implements MailParams {
 
     private String language;
+
     private String email;
+
     private String username;
+
     private String message;
+
     private String url;
 
 }

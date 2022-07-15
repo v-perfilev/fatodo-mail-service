@@ -8,8 +8,11 @@ import lombok.NoArgsConstructor;
 public class Template {
 
     private String code;
+
     private String language;
+
     private String subject;
+
     private String text;
 
 }

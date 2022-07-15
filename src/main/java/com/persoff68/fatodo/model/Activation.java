@@ -8,8 +8,11 @@ import java.util.UUID;
 public class Activation implements MailParams {
 
     private String language;
+
     private String email;
+
     private String username;
+
     private UUID code;
 
 }
