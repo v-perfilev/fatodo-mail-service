@@ -1,14 +1,14 @@
 package com.persoff68.fatodo.web.rest;
 
+import com.persoff68.fatodo.mapper.ActivationMapper;
+import com.persoff68.fatodo.mapper.NotificationMapper;
+import com.persoff68.fatodo.mapper.ResetPasswordMapper;
 import com.persoff68.fatodo.model.Activation;
 import com.persoff68.fatodo.model.Notification;
 import com.persoff68.fatodo.model.ResetPassword;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
-import com.persoff68.fatodo.mapper.ActivationMapper;
-import com.persoff68.fatodo.mapper.NotificationMapper;
-import com.persoff68.fatodo.mapper.ResetPasswordMapper;
 import com.persoff68.fatodo.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(MailController.ENDPOINT)
 public class MailController {
-    static final String ENDPOINT = "/api/mails";
+    static final String ENDPOINT = "/api/mail";
 
     private final MailService mailService;
     private final ActivationMapper activationMapper;
