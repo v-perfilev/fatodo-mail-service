@@ -11,7 +11,6 @@ import com.persoff68.fatodo.model.dto.NotificationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import com.persoff68.fatodo.service.MailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,21 +28,21 @@ public class MailController {
     private final ResetPasswordMapper resetPasswordMapper;
     private final NotificationMapper notificationMapper;
 
-    @PostMapping(value = "/activation", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/activation")
     public ResponseEntity<Void> sendActivationMail(@RequestBody ActivationDTO activationDTO) {
         Activation activation = activationMapper.dtoToPojo(activationDTO);
         mailService.sendActivationEmail(activation);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "/reset-password", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/reset-password")
     public ResponseEntity<Void> sendResetPasswordMail(@RequestBody ResetPasswordDTO resetPasswordDTO) {
         ResetPassword resetPassword = resetPasswordMapper.dtoToPojo(resetPasswordDTO);
         mailService.sendResetPasswordEmail(resetPassword);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "/notification", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notification")
     public ResponseEntity<Void> sendNotificationMail(@RequestBody NotificationDTO notificationDTO) {
         Notification notification = notificationMapper.dtoToPojo(notificationDTO);
         mailService.sendNotificationEmail(notification);
