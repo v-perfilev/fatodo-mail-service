@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMessageVerifier
-public abstract class ContractBase {
+class ContractBase {
 
     @Autowired
     WebApplicationContext context;
@@ -27,7 +27,7 @@ public abstract class ContractBase {
     JavaMailSender mailSender;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         RestAssuredMockMvc.webAppContextSetup(context);
         when(mailSender.createMimeMessage()).thenReturn(Mockito.mock(MimeMessage.class));
         doNothing().when(mailSender).send(any(MimeMessage.class));
