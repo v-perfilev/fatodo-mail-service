@@ -16,7 +16,7 @@ public class TestActivationDTO extends ActivationDTO {
 
     public static TestActivationDTOBuilder defaultBuilder() {
         return TestActivationDTO.builder()
-                .language("en")
+                .language("EN")
                 .email(DEFAULT_VALUE + "@email.com")
                 .username(DEFAULT_VALUE)
                 .code(UUID.randomUUID());

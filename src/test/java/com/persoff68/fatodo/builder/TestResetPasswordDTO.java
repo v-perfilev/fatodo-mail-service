@@ -16,7 +16,7 @@ public class TestResetPasswordDTO extends ResetPasswordDTO {
 
     public static TestResetPasswordDTOBuilder defaultBuilder() {
         return TestResetPasswordDTO.builder()
-                .language("en")
+                .language("EN")
                 .email(DEFAULT_VALUE + "@email.com")
                 .username(DEFAULT_VALUE)
                 .code(UUID.randomUUID());

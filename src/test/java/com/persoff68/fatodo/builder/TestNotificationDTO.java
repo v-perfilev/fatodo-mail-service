@@ -20,7 +20,7 @@ public class TestNotificationDTO extends NotificationDTO {
 
     public static TestNotificationDTOBuilder defaultBuilder() {
         return TestNotificationDTO.builder()
-                .language("en")
+                .language("EN")
                 .email(DEFAULT_VALUE + "@email.com")
                 .username(DEFAULT_VALUE)
                 .message(DEFAULT_VALUE)
