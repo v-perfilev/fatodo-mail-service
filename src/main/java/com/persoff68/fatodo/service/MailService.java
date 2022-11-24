@@ -77,7 +77,7 @@ public class MailService {
     }
 
     private String getLanguage(MailParams mailParams) {
-        return mailParams.getLanguage() != null ? mailParams.getLanguage() : "en";
+        return mailParams.getLanguage() != null ? mailParams.getLanguage() : "EN";
     }
 
     private void wrapAndSend(String language, String email, String subject, String content) {
