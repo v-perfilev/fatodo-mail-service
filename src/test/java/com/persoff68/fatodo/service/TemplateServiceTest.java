@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class TemplateServiceTest {
 
     private final static String[] CODES = {"activation", "reset-password"};
-    private final static String[] LANGUAGES = {"en", "ru"};
+    private final static String[] LANGUAGES = {"EN", "RU"};
 
     @Autowired
     TemplateService templateService;
