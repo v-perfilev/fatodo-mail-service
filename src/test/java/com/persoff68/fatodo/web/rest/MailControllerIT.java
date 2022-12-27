@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.persoff68.fatodo.FatodoMailServiceApplication;
 import com.persoff68.fatodo.annotation.WithCustomSecurityContext;
 import com.persoff68.fatodo.builder.TestActivationDTO;
+import com.persoff68.fatodo.builder.TestFeedbackDTO;
 import com.persoff68.fatodo.builder.TestNotificationDTO;
 import com.persoff68.fatodo.builder.TestResetPasswordDTO;
 import com.persoff68.fatodo.config.constant.AuthorityType;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
+import com.persoff68.fatodo.model.dto.FeedbackDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import org.junit.jupiter.api.Test;
@@ -129,6 +131,28 @@ class MailControllerIT {
         mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithCustomSecurityContext(authority = AuthorityType.Constants.SYSTEM_VALUE)
+    void testSendFeedbackMail_ok() throws Exception {
+        FeedbackDTO dto = TestFeedbackDTO.defaultBuilder().build();
+        String requestBody = objectMapper.writeValueAsString(dto);
+        String url = ENDPOINT + "/feedback";
+        mvc.perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void testSendFeedbackMail_forbidden() throws Exception {
+        FeedbackDTO dto = TestFeedbackDTO.defaultBuilder().build();
+        String requestBody = objectMapper.writeValueAsString(dto);
+        String url = ENDPOINT + "/feedback";
+        mvc.perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isForbidden());
     }
 
 }

@@ -2,16 +2,19 @@ package com.persoff68.fatodo.service;
 
 import com.persoff68.fatodo.config.AppProperties;
 import com.persoff68.fatodo.model.Activation;
+import com.persoff68.fatodo.model.Feedback;
 import com.persoff68.fatodo.model.Mail;
 import com.persoff68.fatodo.model.MailParams;
 import com.persoff68.fatodo.model.Notification;
 import com.persoff68.fatodo.model.ResetPassword;
 import com.persoff68.fatodo.model.Template;
 import com.persoff68.fatodo.service.util.ActivationUtils;
+import com.persoff68.fatodo.service.util.FeedbackUtils;
 import com.persoff68.fatodo.service.util.MailUtils;
 import com.persoff68.fatodo.service.util.NotificationUtils;
 import com.persoff68.fatodo.service.util.ResetPasswordUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +28,9 @@ public class MailService {
     private final TemplateService templateService;
     private final WrapperService wrapperService;
     private final MailSenderService mailSenderService;
+
+    @Value("${mail.adminEmail}")
+    private String adminEmail;
 
     private String baseUrl;
 
@@ -74,6 +80,18 @@ public class MailService {
         String content = NotificationUtils.prepareText(template, username, message, targetLink);
 
         wrapAndSend(language, email, subject, content);
+    }
+
+    public void sendFeedbackEmail(Feedback feedback) {
+        String name = feedback.getName();
+        String email = feedback.getEmail();
+        String message = feedback.getMessage();
+
+        Template template = templateService.getByCodeAndLanguage("feedback", "EN");
+        String subject = template.getSubject();
+        String content = FeedbackUtils.prepareText(template, name, email, message);
+
+        wrapAndSend("EN", email, subject, content);
     }
 
     private String getLanguage(MailParams mailParams) {

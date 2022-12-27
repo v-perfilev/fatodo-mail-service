@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.persoff68.fatodo.config.annotation.ConditionalOnPropertyNotNull;
 import com.persoff68.fatodo.config.util.KafkaUtils;
+import com.persoff68.fatodo.model.dto.FeedbackDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -50,6 +51,11 @@ public class KafkaConfiguration {
     }
 
     @Bean
+    public NewTopic feedbackNewTopic() {
+        return KafkaUtils.buildTopic("mail_feedback", partitions);
+    }
+
+    @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> authContainerFactory() {
         return KafkaUtils.buildStringContainerFactory(bootstrapAddress, groupId, autoOffsetResetConfig);
     }
@@ -57,6 +63,12 @@ public class KafkaConfiguration {
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, NotificationDTO> notificationContainerFactory() {
         JavaType javaType = objectMapper.getTypeFactory().constructType(NotificationDTO.class);
+        return KafkaUtils.buildJsonContainerFactory(bootstrapAddress, groupId, autoOffsetResetConfig, javaType);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, FeedbackDTO> feedbackContainerFactory() {
+        JavaType javaType = objectMapper.getTypeFactory().constructType(FeedbackDTO.class);
         return KafkaUtils.buildJsonContainerFactory(bootstrapAddress, groupId, autoOffsetResetConfig, javaType);
     }
 

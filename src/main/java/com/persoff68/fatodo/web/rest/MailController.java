@@ -1,12 +1,15 @@
 package com.persoff68.fatodo.web.rest;
 
 import com.persoff68.fatodo.mapper.ActivationMapper;
+import com.persoff68.fatodo.mapper.FeedbackMapper;
 import com.persoff68.fatodo.mapper.NotificationMapper;
 import com.persoff68.fatodo.mapper.ResetPasswordMapper;
 import com.persoff68.fatodo.model.Activation;
+import com.persoff68.fatodo.model.Feedback;
 import com.persoff68.fatodo.model.Notification;
 import com.persoff68.fatodo.model.ResetPassword;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
+import com.persoff68.fatodo.model.dto.FeedbackDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import com.persoff68.fatodo.service.MailService;
@@ -27,6 +30,7 @@ public class MailController {
     private final ActivationMapper activationMapper;
     private final ResetPasswordMapper resetPasswordMapper;
     private final NotificationMapper notificationMapper;
+    private final FeedbackMapper feedbackMapper;
 
     @PostMapping(value = "/activation")
     public ResponseEntity<Void> sendActivationMail(@RequestBody ActivationDTO activationDTO) {
@@ -46,6 +50,13 @@ public class MailController {
     public ResponseEntity<Void> sendNotificationMail(@RequestBody NotificationDTO notificationDTO) {
         Notification notification = notificationMapper.dtoToPojo(notificationDTO);
         mailService.sendNotificationEmail(notification);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/feedback")
+    public ResponseEntity<Void> sendFeedbackMail(@RequestBody FeedbackDTO feedbackDTO) {
+        Feedback feedback = feedbackMapper.dtoToPojo(feedbackDTO);
+        mailService.sendFeedbackEmail(feedback);
         return ResponseEntity.ok().build();
     }
 

@@ -1,10 +1,12 @@
 package com.persoff68.fatodo.web.kafka;
 
 import com.persoff68.fatodo.builder.TestActivationDTO;
+import com.persoff68.fatodo.builder.TestFeedbackDTO;
 import com.persoff68.fatodo.builder.TestNotificationDTO;
 import com.persoff68.fatodo.builder.TestResetPasswordDTO;
 import com.persoff68.fatodo.config.util.KafkaUtils;
 import com.persoff68.fatodo.model.dto.ActivationDTO;
+import com.persoff68.fatodo.model.dto.FeedbackDTO;
 import com.persoff68.fatodo.model.dto.NotificationDTO;
 import com.persoff68.fatodo.model.dto.ResetPasswordDTO;
 import com.persoff68.fatodo.service.MailSenderService;
@@ -51,12 +53,14 @@ class MailConsumerIT {
     private KafkaTemplate<String, ActivationDTO> activationKafkaTemplate;
     private KafkaTemplate<String, ResetPasswordDTO> resetPasswordKafkaTemplate;
     private KafkaTemplate<String, NotificationDTO> notificationKafkaTemplate;
+    private KafkaTemplate<String, FeedbackDTO> feedbackKafkaTemplate;
 
     @BeforeEach
     void setup() {
         activationKafkaTemplate = buildKafkaTemplate();
         resetPasswordKafkaTemplate = buildKafkaTemplate();
         notificationKafkaTemplate = buildKafkaTemplate();
+        feedbackKafkaTemplate = buildKafkaTemplate();
 
         doNothing().when(mailSenderService).sendMimeMessage(any());
     }
@@ -90,6 +94,16 @@ class MailConsumerIT {
 
         assertThat(messageConsumed).isTrue();
         verify(mailService, times(1)).sendNotificationEmail(any());
+    }
+
+    @Test
+    void testSendFeedbackMail() throws InterruptedException {
+        FeedbackDTO dto = TestFeedbackDTO.defaultBuilder().build();
+        feedbackKafkaTemplate.send("mail_feedback", dto);
+        boolean messageConsumed = mailConsumer.getLatch().await(5, TimeUnit.SECONDS);
+
+        assertThat(messageConsumed).isTrue();
+        verify(mailService, times(1)).sendFeedbackEmail(any());
     }
 
     private <T> KafkaTemplate<String, T> buildKafkaTemplate() {
