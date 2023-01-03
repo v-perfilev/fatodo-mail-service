@@ -7,8 +7,10 @@ public class MailUtils {
     private MailUtils() {
     }
 
-    public static String wrapContent(String wrapper, String content) {
-        return wrapper.replace(EmailConstants.CONTENT_STUB, content);
+    public static String wrapContent(String wrapper, String content, String year) {
+        return wrapper
+                .replace(EmailConstants.CONTENT_STUB, content)
+                .replace(EmailConstants.YEAR_STUB, year);
     }
 
 }

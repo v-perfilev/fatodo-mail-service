@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.time.Year;
 import java.util.UUID;
 
 @Service
@@ -100,7 +101,8 @@ public class MailService {
 
     private void wrapAndSend(String language, String email, String subject, String content) {
         String wrapper = wrapperService.getWrapperString(language);
-        String text = MailUtils.wrapContent(wrapper, content);
+        String year = String.valueOf(Year.now().getValue());
+        String text = MailUtils.wrapContent(wrapper, content, year);
         Mail mail = Mail.of(email, subject, text);
         mailSenderService.sendMimeMessage(mail);
     }

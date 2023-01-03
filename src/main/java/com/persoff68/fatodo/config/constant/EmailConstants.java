@@ -11,6 +11,7 @@ public class EmailConstants {
     public static final String NAME_STUB = "{NAME}";
     public static final String EMAIL_STUB = "{EMAIL}";
     public static final String MESSAGE_STUB = "{MESSAGE}";
+    public static final String YEAR_STUB = "{YEAR}";
 
     private EmailConstants() {
     }
