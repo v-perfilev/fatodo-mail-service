@@ -72,4 +72,5 @@ management:
         enabled: false
 
 mail:
+  noReplyEmail: test@test.test
   adminEmail: test@test.test

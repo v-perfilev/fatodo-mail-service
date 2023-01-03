@@ -91,7 +91,7 @@ public class MailService {
         String subject = template.getSubject();
         String content = FeedbackUtils.prepareText(template, name, email, message);
 
-        wrapAndSend("EN", email, subject, content);
+        wrapAndSend("EN", adminEmail, subject, content);
     }
 
     private String getLanguage(MailParams mailParams) {
