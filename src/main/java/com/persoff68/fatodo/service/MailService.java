@@ -1,19 +1,10 @@
 package com.persoff68.fatodo.service;
 
 import com.persoff68.fatodo.config.AppProperties;
-import com.persoff68.fatodo.model.Activation;
-import com.persoff68.fatodo.model.Feedback;
-import com.persoff68.fatodo.model.Mail;
-import com.persoff68.fatodo.model.MailParams;
-import com.persoff68.fatodo.model.Notification;
-import com.persoff68.fatodo.model.ResetPassword;
-import com.persoff68.fatodo.model.Template;
-import com.persoff68.fatodo.service.util.ActivationUtils;
-import com.persoff68.fatodo.service.util.FeedbackUtils;
-import com.persoff68.fatodo.service.util.MailUtils;
-import com.persoff68.fatodo.service.util.NotificationUtils;
-import com.persoff68.fatodo.service.util.ResetPasswordUtils;
+import com.persoff68.fatodo.model.*;
+import com.persoff68.fatodo.service.util.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MailService {
 
     private final AppProperties appProperties;
@@ -51,7 +43,9 @@ public class MailService {
         String activationLink = ActivationUtils.prepareActivationLink(baseUrl, code);
         String content = ActivationUtils.prepareText(template, username, activationLink);
 
+        log.info("Trying to send an activation mail to {}", email);
         wrapAndSend(language, email, subject, content);
+        log.info("Activation mail sent to {}", email);
     }
 
     public void sendResetPasswordEmail(ResetPassword resetPassword) {
@@ -65,7 +59,9 @@ public class MailService {
         String resetPasswordLink = ResetPasswordUtils.prepareResetPasswordLink(baseUrl, code);
         String content = ResetPasswordUtils.prepareText(template, username, resetPasswordLink);
 
+        log.info("Trying to send an reset password mail to {}", email);
         wrapAndSend(language, email, subject, content);
+        log.info("Reset password mail sent to {}", email);
     }
 
     public void sendNotificationEmail(Notification notification) {
