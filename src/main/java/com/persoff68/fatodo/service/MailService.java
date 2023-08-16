@@ -1,8 +1,18 @@
 package com.persoff68.fatodo.service;
 
 import com.persoff68.fatodo.config.AppProperties;
-import com.persoff68.fatodo.model.*;
-import com.persoff68.fatodo.service.util.*;
+import com.persoff68.fatodo.model.Activation;
+import com.persoff68.fatodo.model.Feedback;
+import com.persoff68.fatodo.model.Mail;
+import com.persoff68.fatodo.model.MailParams;
+import com.persoff68.fatodo.model.Notification;
+import com.persoff68.fatodo.model.ResetPassword;
+import com.persoff68.fatodo.model.Template;
+import com.persoff68.fatodo.service.util.ActivationUtils;
+import com.persoff68.fatodo.service.util.FeedbackUtils;
+import com.persoff68.fatodo.service.util.MailUtils;
+import com.persoff68.fatodo.service.util.NotificationUtils;
+import com.persoff68.fatodo.service.util.ResetPasswordUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
