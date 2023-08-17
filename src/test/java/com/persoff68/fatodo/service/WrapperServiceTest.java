@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest(classes = FatodoMailServiceApplication.class)
 class WrapperServiceTest {
 
-    private final static String[] LANGUAGES = {"EN", "ES", "RU"};
+    private final static String[] LANGUAGES = {"EN", "DE", "ES", "FR", "PT", "RU", "UA"};
 
     @Autowired
     WrapperService wrapperService;
